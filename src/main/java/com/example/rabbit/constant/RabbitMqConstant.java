@@ -19,6 +19,10 @@ public interface RabbitMqConstant {
         // 主题队列
         public static final String TOPIC_QUEUE1 = "topic_queue1";
         public static final String TOPIC_QUEUE2 = "topic_queue2";
+
+        // 广播队列
+        public static final String FANOUT_QUEUE1 = "fanout_queue1";
+        public static final String FANOUT_QUEUE2 = "fanout_queue2";
     }
 
     /**
@@ -30,6 +34,9 @@ public interface RabbitMqConstant {
 
         // 主题交换机
         public static final String TOPIC_EXCHANGE = "topic_exchange";
+
+        // 广播交换机
+        public static final String FANOUT_EXCHANGE = "fanout_exchange";
 
     }
 
