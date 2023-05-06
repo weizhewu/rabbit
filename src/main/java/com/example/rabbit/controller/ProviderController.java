@@ -1,6 +1,7 @@
 package com.example.rabbit.controller;
 
 import com.example.rabbit.provider.DelayedProvider;
+import com.example.rabbit.provider.FanoutProvider;
 import com.example.rabbit.provider.TopicProvider;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,8 @@ public class ProviderController {
     private DelayedProvider delayedProvider;
     @Resource
     private TopicProvider topicProvider;
+    @Resource
+    private FanoutProvider fanoutProvider;
 
     /**
      * 发送延迟消息
@@ -40,5 +43,11 @@ public class ProviderController {
     @PostMapping(value = "sendTopicMessage")
     public void sendTopicMessage(@RequestParam String message){
         topicProvider.sendTopicMessage(message);
+    }
+
+
+    @PostMapping(value = "sendFanoutMessage")
+    public void sendFanoutMessage(@RequestParam String message){
+        fanoutProvider.sendFanoutMessage(message);
     }
 }
