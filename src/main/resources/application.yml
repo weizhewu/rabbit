@@ -1,3 +1,5 @@
+server:
+  port: 8081
 spring:
   rabbitmq:
     host: 127.0.0.1 #ip
@@ -12,5 +14,6 @@ spring:
         prefetch: 1 #限流(消费者每次从队列获取的消息数量)
         auto-startup: true # 启动时自动启动容器
         acknowledge-mode: manual # 开启ACK手动确认模式
-server:
-  port: 8081
+    publisher-confirm-type: correlated #确认消息发送到交换机上
+    publisher-returns: true # 确认消息已发送到队列
+
