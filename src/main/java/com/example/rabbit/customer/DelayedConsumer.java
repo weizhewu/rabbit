@@ -3,6 +3,8 @@ package com.example.rabbit.customer;
 import com.rabbitmq.client.Channel;
 import org.springframework.messaging.Message;
 
+import java.io.IOException;
+
 /**
  * @version 1.0.0
  * @author: wei-zhe-wu
@@ -15,5 +17,5 @@ public interface DelayedConsumer {
      * @param message 消息
      * @param channel 信道
      */
-    void receiveMessage(Message<Object> message, Channel channel);
+    void receiveMessage(Message<Object> message, Channel channel) throws IOException;
 }

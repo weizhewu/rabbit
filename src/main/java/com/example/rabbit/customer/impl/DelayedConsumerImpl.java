@@ -5,10 +5,12 @@ import com.example.rabbit.constant.RabbitMqConstant;
 import com.example.rabbit.customer.DelayedConsumer;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.support.AmqpHeaders;
 import org.springframework.messaging.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Date;
 
 /**
@@ -22,7 +24,12 @@ import java.util.Date;
 public class DelayedConsumerImpl implements DelayedConsumer {
     @Override
     @RabbitListener(queues = RabbitMqConstant.Queue.DELAYED_QUEUE)
-    public void receiveMessage(Message<Object> message, Channel channel) {
+    public void receiveMessage(Message<Object> message, Channel channel) throws IOException {
         log.info("当前时间：{}，收到延迟队列的消息：{}",new Date(), JSON.toJSONString(message.getPayload()));
+        Long deliveryTag = (Long) message.getHeaders().get(AmqpHeaders.DELIVERY_TAG);
+        if (deliveryTag!= null){
+            channel.basicAck(deliveryTag,false);
+            log.info("已确认该消息");
+        }
     }
 }
